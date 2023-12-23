@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="marathon.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="heading"><h1>Race Registration!</h1></div>
+    <form action="ntg">
+        <div>
+            <label for="First">First Name</label>
+            <input type="text" name="First" id="First">
+            <label for="Last">Last name</label>
+            <input type="text" name="Last" id="Last">
+        </div>
+        <div>
+            <p>
+            <label for="type">Select a Race:</label>
+        </p>
+        </div>
+        <div id="radios">
+            <label for="Fun">Fun Run 5k </label>
+            <input type="radio" name="type" id="type1">
+            <label for="Half">Half Marathon </label>
+            <input type="radio" name="type" id="type2">
+            <label for="Fun">Full Marathon </label>
+            <input type="radio" name="type" id="type3">
+        </div>
+        <div>
+            <p>
+            <label for="email">Email:</label>
+            <input type="email" name="Email" id="email" required>
+            <label for="pass">Password:</label>
+            <input type="password" name="pass" id="pass">
+            </p>
+        </div>
+        <div>
+            <label for="age">Select Age Group:</label>
+            <select name="age" id="age">
+                <option value="">under 18</option>
+                <option value="">above 18</option>
+                <option value="">senior </option>
+            </select>
+        </div>
+        <p>
+        <button>submit</button>
+    </p>
+    </form>
+</body>
+</html>

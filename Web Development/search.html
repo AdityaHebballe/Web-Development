@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Search Reddit</h3>
+    <form action="https://www.reddit.com/search/">
+        <label for="search">search on reddit</label>
+        <input type="text" id="search" name="q">
+        <button>Search</button>
+    </form>
+    <h3>Search Google</h3>
+    <form action="https://www.google.com/search">
+        <label for="search">search on google</label>
+        <input type="text" id="search" name="q">
+        <button>Search</button>
+    </form>
+    <h3>Youtube</h3>
+    <form action="https://www.youtube.com/results">
+        <label for="search">search on youtube</label>
+        <input type="text" id="search" name="search_query">
+        <button>Search</button>
+    </form>
+    <p>
+        <label for="s">s</label>
+        <input type="radio" name="drone" id="s">
+        <label for="m">m</label>
+        <input type="radio" name="drone" id="m">
+        <label for="l">l</label>
+        <input type="radio" name="drone" id="l">
+    </p>
+    <p>
+        <label for="">Select size</label>
+        <select name="size" id="">
+            <option value="size">small</option>
+            <option value="size">medium</option>
+            <option value="size">large</option>
+        </select>
+    </p>
+    <p>
+        <label for="cheese">Amount of cheese</label>
+        <input type="range" name="cheese" id="cheese">
+    </p>
+    <h2>VAlidations</h2>
+    <form action="/dummy">
+        <label for="first">Enter first name</label>
+        <input type="text" name="frist" id="first" required>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,52 @@
+article{
+    font-size: 30px;
+}
+h2{
+    font-size: 2em;
+    margin-left: 1em;
+}
+button{
+    font-size: 1em;
+    padding: 0 1em;
+    border-radius: 0.5em;
+    background-color: plum;
+    color: aliceblue;
+}
+.circle{
+    background-color: aliceblue;
+    width: 300px;
+    height:300px;
+    transition: 1s ;
+}
+.circle:hover{
+    background-color: #C3B1E1;
+    border-radius: 50%;
+}
+
+section div {
+    height: 100px;
+    width: 100px;
+    background-color: palevioletred;
+    margin: 20px 0;
+    transition: margin-left 1s;
+    margin-bottom: 20px;
+    transition: 2s;
+
+}
+section:hover div{
+    margin-left:500px;
+    transform: rotate(45deg);
+    transition: 2s;
+}
+.first{
+    transition-timing-function: ease-in-out;
+}
+.second{
+    transition-timing-function: cubic-bezier(0,1.93,1,-0.92);
+}
+.third{
+    transition-timing-function: ;
+}
+.fourth{
+    transition-timing-function: ease;
+}

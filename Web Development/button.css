@@ -1,0 +1,52 @@
+body{
+    font-family: 'Kanit', sans-serif;
+    background-color: #151b29;
+    display:flex;
+    align-items:center;
+    height: 100vh;
+    justify-content: center;
+}
+section{
+    width:37%;
+    height:400px;
+    background-image: url("https://image.cnbcfm.com/api/v1/image/101074162-breaking-bad_r.jpg?v=1497619874&w=740&h=416&ffmt=webp&vtcrop=y")
+}
+
+.yes{
+    font-family: 'Kanit', sans-serif;
+    background: none;
+    border-width: 5px;
+    color: #d0b3ff;
+    border: 2px solid;
+    padding: 1em 2em ;
+    font-size: 1em;
+    transition: all 0.25s;
+
+}
+.no{
+    font-family: 'Kanit', sans-serif;
+    
+    background: none;
+    border-width: 5px;
+    color: #d0b3ff;
+    border: 2px solid;
+    padding: 1em 2em ;
+    font-size: 1em;
+    transition: all 0.25s;
+
+}
+
+.no:hover{
+    border-color:#ff6961;
+    color: aliceblue;
+    box-shadow: 0 0.5em 0.5em -0.4em;
+    transform: translateY(-0.25em);
+    cursor:pointer;
+}
+.yes:hover{
+    border-color:#a0ffa0;
+    color: aliceblue;
+    box-shadow: 0 0.5em 0.5em -0.4em;
+    transform: translateY(-0.25em);
+    cursor:pointer;
+}

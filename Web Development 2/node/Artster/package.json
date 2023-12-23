@@ -1,0 +1,14 @@
+{
+  "name": "artster",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": " "
+  },
+  "author": "Aditya",
+  "license": "ISC",
+  "dependencies": {
+    "figlet": "^1.6.0"
+  }
+}

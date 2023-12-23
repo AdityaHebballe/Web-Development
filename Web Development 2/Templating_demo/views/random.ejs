@@ -1,0 +1,10 @@
+<%- include('partials/head') %>
+
+    <%- include('partials/navbar') %>
+    <h1><%= rand %></h1>
+    <% if(rand%2==0){ %>
+        <h2>That is even bish</h2>
+    <%} else{%>
+        <h2>That is odd af</h2>
+    <%  }%>
+<%- include('partials/footer') %>
