@@ -37,17 +37,14 @@ app.get('/products',async(req,res)=>{
 app.get('/products/new',(req,res)=>{
     res.render('products/new', {categories})
 })
-app.post('/products',async(req,res,next)=>{
-    try{
+app.post('/products',wrapAsync(async(req,res,next)=>{
+
         const newProduct = new Product(req.body)
         await newProduct.save()
         console.log(newProduct)
         res.redirect(`/products/${newProduct._id}`)
-    }
-    catch(e){
-        next(e)
-    }
-})
+
+}))
 
 function wrapAsync(fn){
     return function (req,res,next){
@@ -65,34 +62,37 @@ app.get('/products/:id',wrapAsync(async(req,res,next)=>{
 
 }))
 
-app.put('/products/:id',async(req,res,next)=>{
-    try{
+app.put('/products/:id',wrapAsync(async(req,res,next)=>{
         const {id} = req.params;
         const product = await Product.findByIdAndUpdate(id, req.body,{runValidators:true, new:true})
         res.redirect(`/products/${product._id}`)
-    }
-    catch(e){
-        next(e)
-    }
-})
+
+}))
 
 app.delete('/products/:id', async(req,res)=>{
     const {id} = req.params
     const deletedProduct =await Product.findByIdAndDelete(id)
     res.redirect('/products')
 })
-app.get('/products/:id/edit', async(req,res,next)=>{
-    try{
+app.get('/products/:id/edit', wrapAsync(async(req,res,next)=>{
         const {id} = req.params;
         const product = await Product.findById(id)
         if(!product){
             throw next(new AppError('Product not found',404))
         }
         res.render('products/edit',{product,categories})
+    
+}))
+const handleError=(err)=>{
+    console.dir(err)
+    return new AppError(`Validation Failed ${err.message}`,400)
+}
+app.use((err,req,res,next)=>{
+    console.log(err.name)
+    if(err.name="ValidationError"){
+        err = handleError(err)
     }
-    catch(e){
-        next(e)
-    }
+    next(err)
 })
 app.use((err,req,res,next)=>{
     const {status = 500, message = 'Something went wrong'} = err;
