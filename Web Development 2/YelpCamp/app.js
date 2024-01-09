@@ -4,11 +4,20 @@ const path = require('path')
 const mongoose  = require('mongoose')
 const methodOverride = require('method-override')
 const ejsMate = require('ejs-mate')
+
+if(process.env.NODE_ENV !== "production"){
+    require('dotenv').config()
+}
+
 const ExpressError = require('./utils/ExpressError')
-const reviews = require('./routes/reviews.js')
-const campgrounds= require('./routes/campground.js')
+const reviewRoutes = require('./routes/reviews.js')
+const campgroundRoutes= require('./routes/campground.js')
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+const User = require('./models/user.js')
+const userRouters = require('./routes/users.js')
 //Mongoose Connection
 mongoose.connect('mongodb://localhost:27017/yelp-camp',{
     useNewUrlParser:true,
@@ -28,7 +37,6 @@ app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname,'public')))
 
-
 const sessionConfig = {
     secret: 'thisshouldbeabettersecret',
     resave:false,
@@ -39,16 +47,34 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 *7
     }
 }
+
 app.use(session(sessionConfig))
 app.use(flash())
-//Routes
+
+// Passport Initialization
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+//Misc Routes
 app.use((req,res,next)=>{
+    res.locals.currentUser = req.user
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
     next()
 })
-app.use('/campgrounds', campgrounds)
-app.use('/campgrounds/:id/reviews',reviews)
+
+app.get('/fakeuser',async(req,res)=>{
+    const user = new User({email:'adityaaa@getMaxListeners.com',username:'AAditya'})
+    const newUser = await User.register(user,'chicken')
+    res.send(newUser)
+})
+
+app.use('/campgrounds', campgroundRoutes)
+app.use('/campgrounds/:id/reviews',reviewRoutes)
+app.use('/',userRouters)
 
 
 app.get('/',(req,res)=>{
