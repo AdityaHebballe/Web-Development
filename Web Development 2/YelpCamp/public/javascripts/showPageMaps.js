@@ -6,6 +6,14 @@ const map = new mapboxgl.Map({
     zoom: 15, // starting zoom
 });
 
+const nav = new mapboxgl.NavigationControl({
+    visualizePitch: true,
+    showZoom:true,
+    showCompass:true,
+});
+
+map.addControl(nav, 'bottom-right');
+
 new mapboxgl.Marker()
 .setLngLat(campground.geometry.coordinates)
 .setPopup(
