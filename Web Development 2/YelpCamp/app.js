@@ -6,9 +6,14 @@ const methodOverride = require('method-override')
 const ejsMate = require('ejs-mate')
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet  = require('helmet')
+require('dotenv').config()
+// const dbUrl = process.env.DB_URL
+
 if(process.env.NODE_ENV !== "production"){
     require('dotenv').config()
 }
+
+
 
 const ExpressError = require('./utils/ExpressError')
 const reviewRoutes = require('./routes/reviews.js')
@@ -20,6 +25,7 @@ const LocalStrategy = require('passport-local')
 const User = require('./models/user.js')
 const userRouters = require('./routes/users.js')
 //Mongoose Connection
+// 'mongodb://localhost:27017/yelp-camp'
 mongoose.connect('mongodb://localhost:27017/yelp-camp',{
     useNewUrlParser:true,
     useUnifiedTopology:true
