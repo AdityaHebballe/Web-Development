@@ -7,7 +7,7 @@ const ejsMate = require('ejs-mate')
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet  = require('helmet')
 require('dotenv').config()
-// const dbUrl = process.env.DB_URL
+const dbUrl = 'mongodb://localhost:27017/yelp-camp'
 
 if(process.env.NODE_ENV !== "production"){
     require('dotenv').config()
@@ -24,9 +24,10 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const User = require('./models/user.js')
 const userRouters = require('./routes/users.js')
+const MongoStore = require('connect-mongo');
 //Mongoose Connection
 // 'mongodb://localhost:27017/yelp-camp'
-mongoose.connect('mongodb://localhost:27017/yelp-camp',{
+mongoose.connect(dbUrl,{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
@@ -44,9 +45,22 @@ app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname,'public')))
 app.use(mongoSanitize())
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret!'
+    }
+});
+
+store.on("error",function(e){
+    console.log("SESSION STORE ERROR",e)
+})
 const sessionConfig = {
+    store,
     name:"session",
-    secret: 'thisshouldbeabettersecret',
+    secret: 'thisshouldbeabettersecret!',
     resave:false,
     saveUninitialized:true,
     cookie:{
@@ -60,6 +74,8 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 app.use(helmet({contentSecurityPolicy:false}));
+
+
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
     "https://api.tiles.mapbox.com/",
@@ -67,6 +83,7 @@ const scriptSrcUrls = [
     "https://kit.fontawesome.com/",
     "https://cdnjs.cloudflare.com/",
     "https://cdn.jsdelivr.net",
+    "https://code.jquery.com/"
 ];
 const styleSrcUrls = [
     "https://kit-free.fontawesome.com/",
