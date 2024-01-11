@@ -18,12 +18,12 @@ if(process.env.NODE_ENV !== "production"){
 const ExpressError = require('./utils/ExpressError')
 const reviewRoutes = require('./routes/reviews.js')
 const campgroundRoutes= require('./routes/campground.js')
-const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const User = require('./models/user.js')
 const userRouters = require('./routes/users.js')
+const session = require('express-session')
 const MongoStore = require('connect-mongo');
 //Mongoose Connection
 // 'mongodb://localhost:27017/yelp-camp'
@@ -65,7 +65,7 @@ const sessionConfig = {
     saveUninitialized:true,
     cookie:{
         httpOnly:true,
-        secure:true,
+        // secure:true,
         expires:Date.now() + 1000 * 60 * 60 * 24 *7,
         maxAge: 1000 * 60 * 60 * 24 *7
     }
